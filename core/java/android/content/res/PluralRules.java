@@ -75,6 +75,10 @@ abstract class PluralRules {
             if (cs == null) cs = new cs();
             return cs;
         }
+        if ("pl".equals(lang)) {
+            if (pl == null) pl = new pl();
+            return pl;
+        }
         else {
             if (en == null) en = new en();
             return en;
@@ -88,6 +92,21 @@ abstract class PluralRules {
                 return QUANTITY_ONE;
             }
             else if (n >= 2 && n <= 4) {
+                return QUANTITY_FEW;
+            }
+            else {
+                return QUANTITY_OTHER;
+            }
+        }
+    }
+
+    private static PluralRules pl;
+    private static class pl extends PluralRules {
+        int quantityForNumber(int n) {
+            if (n == 1) {
+                return QUANTITY_ONE;
+            }
+            else if ((n%100 >= 2 && n%100 <= 4) || (n%100 >= 22 && n%10 >= 2 && n%10 <= 4)) {
                 return QUANTITY_FEW;
             }
             else {
